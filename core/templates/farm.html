@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Posts {% endblock title %}
+
+{% block content %}
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Holding ID</th>
+                <th scope="col">Zone</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Species</th>
+                <th scope="col">Breed</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Age</th>
+                <th scope="col">Colour</th>
+            </tr>
+        </thead>
+    
+        {% for i in farm_data %}
+        <tbody>     
+            <tr>
+                <th scope="row">{{ i.holding_id }}</th>
+                <td>{{ i.zone }}</td>
+                <td>{{ i.brand }}</td>
+                <td>{{ i.dob }}</td>
+                <td>{{ i.species }}</td>
+                <td>{{ i.breed }}</td>
+                <td>{{ i.sex }}</td>
+                <td>{{ i.age }}</td>
+                <td>{{ i.colour }}</td>
+            </tr>
+        </tbody>
+        {% endfor %} 
+    </table>
+
+{% endblock content %}
+

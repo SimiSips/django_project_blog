@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <h3>List of Pokemons</h3>
+    {% for i in response %}
+    <h4>NAME:</h4>
+    <p>{{ i.name }}</p>
+    <h4>IMAGE:</h4>
+    {% for l in i %}
+    {% with img_url='"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"' %}
+    <img src= {{img_url}} />
+    {% endwith %}
+    {% endfor %}
+    <h4>URL:</h4>
+    <a href="{{ i.url }}">{{i.url}}</a><br><br>
+    {% endfor %}
+    {{ response.results }} -->
+
+    <h1>Pokemons</h1>
+    {% for i in response %}
+
+    <ul>
+        <li>{{ i.name }}</li> 
+    </ul>
+    {% endfor %}
+</body>
+</html>

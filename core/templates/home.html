@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Posts {% endblock title %}
+
+{% block content %}
+
+
+    <div class="home-content">
+    {% for post in posts %}
+
+    <h1 class="title"> <a class="link" href="{{ post.get_absolute_url }}">{{ post.title }}</a> </h1>
+
+    <p class="paragraph"> {{ post.body}} </p>
+    <img src="{{ post.img.url }}" alt="" class="post-img">
+        {% for comment in comments %}
+            {% if comment.post == post.title %}
+                <p class="comment">{{ comment.post }}</p>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    </div>
+
+    
+    {% include 'pagination.html' with page=posts %}
+{% endblock content %}

@@ -6,7 +6,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
-    path('api/v1/pokemons/', include('pokeapi.api.urls'))
+    path('api/v1/pokemons/', include('pokeapi.api.urls')),
 ]
 
 if settings.DEBUG:

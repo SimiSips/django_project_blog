@@ -11,7 +11,7 @@
 
     <h1 class="title"> <a class="link" href="{{ post.get_absolute_url }}">{{ post.title }}</a> </h1>
 
-    <p class="paragraph"> {{ post.body}} </p>
+    <p class="paragraph"> {{ post.body|truncatewords:50}} </p>
     <img src="{{ post.img.url }}" alt="" class="post-img">
         {% for comment in comments %}
             {% if comment.post == post.title %}

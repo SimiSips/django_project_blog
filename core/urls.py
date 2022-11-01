@@ -1,5 +1,5 @@
 from django.urls import path, include
-from core.views import farm_view, register_request, logout_request, login_request, home_view, post_detail, profile_view
+from core.views import farm_view, register_request, logout_request, login_request, home_view, post_detail, profile_view, mypost_view
 
 app_name = 'blog'
 
@@ -11,5 +11,6 @@ urlpatterns = [
     path('register/', register_request, name="register"),
     path('logout/', logout_request, name="logout"),
     # path('accounts/profile', include('django.contrib.auth.urls')),
-    path('accounts/profile/', profile_view, name='profile'),
+    path('profile/', profile_view, name='profile'),
+    path('myposts', mypost_view, name='myposts'),
 ]

@@ -22,7 +22,7 @@ class Post(models.Model):
     img = models.FileField(upload_to='posts/', default='POST IMAGE')
     slug = models.SlugField(max_length=240, unique_for_date="publish")
     publish = models.DateField(default=timezone.now)
-    author = models.CharField(max_length=240)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
 
 

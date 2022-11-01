@@ -37,7 +37,7 @@ def home_view(request):
 	
 	User = get_user_model()
 	users = User.objects.all()
-	return render(request, 'home.html', {'user': users, 'books':book_list, 'page': page, 'posts': posts})
+	return render(request, 'home.html', {'books':book_list, 'page': page, 'posts': posts})
 
 def post_detail(request, year, month, day, post):
 	post = get_object_or_404(Post, slug=post, status='published', publish__year=year, publish__month=month, publish__day=day)
@@ -94,3 +94,9 @@ def logout_request(request):
 	messages.info(request, "You have successfully logged out.")
 	return redirect("blog:home")
 
+
+def mypost_view(request):
+	myposts = Post.objects.all()
+
+	
+	return render(request, "registration/myposts.html", {'myposts': myposts})

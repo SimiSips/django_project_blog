@@ -1,5 +1,5 @@
 from django.urls import path, include
-from core.views import farm_view, register_request, logout_request, login_request, home_view, post_detail, profile_view, mypost_view
+from core.views import farm_view, register_request, logout_request, login_request, home_view, post_detail, profile_view, mypost_view, UserEditView
 
 app_name = 'blog'
 
@@ -13,4 +13,5 @@ urlpatterns = [
     # path('accounts/profile', include('django.contrib.auth.urls')),
     path('profile/', profile_view, name='profile'),
     path('myposts', mypost_view, name='myposts'),
+    path('<pk>/update', UserEditView.as_view(), name="edit_profile")
 ]

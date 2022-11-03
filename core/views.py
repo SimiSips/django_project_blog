@@ -1,5 +1,6 @@
 import datetime
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+from django.urls import reverse_lazy
 from .models import Book, Farm, Post, Comment
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -7,8 +8,12 @@ from .forms import CommentForm, NewUserForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
 from .forms import NewUserForm, UserForm
+
+from django.contrib.auth.models import User
+from django.views.generic import (UpdateView)
+
 
 # Create your views here.
 
@@ -100,3 +105,11 @@ def mypost_view(request):
 
 	
 	return render(request, "registration/myposts.html", {'myposts': myposts})
+
+
+class UserEditView(UpdateView):
+	model = User
+	form_class = UserChangeForm
+	template_name = 'registration/editprofile.html'
+	success_url = reverse_lazy("blog:profile")
+	

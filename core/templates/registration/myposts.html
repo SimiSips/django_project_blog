@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% for post in myposts %}
+
+    {% for i in post.author %}
+        {% if i == user.username %}
+            {{ i }}
+        {% endif %}
+    {% endfor %}
+        
+       
+    
+    
+{% endfor %}
+
+
+{% endblock content %}

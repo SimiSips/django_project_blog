@@ -2,7 +2,7 @@
 
 {% block style %}  
 
-.userdetails{
+.userdetails, .btns{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,8 +27,65 @@
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
-  border-radius: 25%;
+  border-radius: 30%;
+  width: 415px;
 
+}
+
+.button-18 {
+  align-items: center;
+  background-color: #0A66C2;
+  border: 0;
+  border-radius: 100px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  max-width: 480px;
+  min-height: 40px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  touch-action: manipulation;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+}
+
+.button-18:hover,
+.button-18:focus { 
+  background-color: #16437E;
+  color: #ffffff;
+}
+
+.button-18:active {
+  background: #09223b;
+  color: rgb(255, 255, 255, .7);
+}
+
+.button-18:disabled { 
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
+}
+
+.profile-img{
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
+}
+
+a{
+  text-decoration: none;
 }
 
 {% endblock style %}
@@ -138,17 +195,59 @@
     </div>
   </div>
 </div> {% endcomment %}
+
 <div class="userdetails">
   <div class="detailscontent">
     <div class="col-lg-4 cont">
-      <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-      <h2>{{ user.username }}</h2>
-      <p> 5 </p>
+      <img class="w-32 h-32 md:h-auto rounded-full profile-img" src="{{ user.profile.image.url }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+        {% for post in object_list %}
+        <p>{{ forloop.counter }} POSTS</p> 
+        {% endfor %}
     </div>
     
   </div>
 
 </div>
-<button class="button button5">Edit Profile</button>
-<a href="{% url 'blog:edit_profile' user.id %}">Edit Profile</a>
+<div class="btns">
+
+  <a class="button-18" role="button" href="{% url 'blog:edit_profile' user.id %}">Edit Profile</a>
+  <a class="button-18" role="button" href="{% url 'blog:add_post' %}">Add Post</a>
+  <a class="button-18" role="button" href="{% url 'blog:post_list' %}">All Post</a>
+
+</div>
+
+<br><br>
+
+<div class="container">
+ 
+
+{% for post in object_list %}
+  {% if user.id == post.author.id %}
+<div class="accordion" id="accordionExample">
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading{{ post.id }}">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ post.id }}" aria-expanded="true" aria-controls="collapse{{ post.id }}">
+        {{ post.title }}
+      </button>
+    </h2>
+    <div id="collapse{{ post.id }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ post.id }}" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>{{ post.id }}</strong> {{ post.body }}
+        <br><br>
+        <a href="{% url 'blog:update_post' post.id %}"> <i class="bi bi-pen"></i> </a> | <a href="{% url 'blog:delete_post' post.id %}"> <i class="bi bi-trash"></i> </a>
+      </div>
+    </div>
+  </div>
+  
+</div> 
+  {% endif %}
+{% endfor %}
+
+</div>
+{% comment %} <a href="{% url 'blog:add_post' %}">All Post</a> {% endcomment %}
 {% endblock content %}

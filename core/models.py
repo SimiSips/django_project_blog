@@ -19,7 +19,7 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=240, unique=True)
     body = models.TextField()
-    img = models.FileField(upload_to='posts/', default='POST IMAGE')
+    img = models.FileField(upload_to='posts/')
     slug = models.SlugField(max_length=240, unique_for_date="publish")
     publish = models.DateField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -58,3 +58,8 @@ class Comment(models.Model):
     def __str__(self):
         return f'comment by {self.name} on {self.post}'
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    def __str__(self):
+        return f'{self.user.username} Profile'

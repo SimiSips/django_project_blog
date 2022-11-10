@@ -12,8 +12,8 @@ from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
 from .forms import NewUserForm, UserForm
 
 from django.contrib.auth.models import User
-from django.views.generic import (UpdateView)
-
+from django.views.generic import (UpdateView, CreateView, ListView, DeleteView)
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -60,6 +60,7 @@ def post_detail(request, year, month, day, post):
 	
 @login_required(login_url='login')
 def profile_view(request):
+	
 	return render(request, 'registration/profile.html')
 
 
@@ -113,3 +114,29 @@ class UserEditView(UpdateView):
 	template_name = 'registration/editprofile.html'
 	success_url = reverse_lazy("blog:profile")
 	
+#Create a new post view
+class AddPostView(CreateView):
+    model = Post
+    template_name = 'registration/addBlogPost.html'
+    fields = '__all__'
+
+    success_url = reverse_lazy("blog:profile")
+
+class PostListView(ListView):
+    model = Post
+    template_name = "registration/profile.html"
+
+class EditPostView(UpdateView):
+    model = Post
+    template_name = "registration/editpost.html"
+    fields = '__all__'
+
+    success_url = reverse_lazy("blog:profile")
+
+@login_required
+def deletePost(request, id):
+	post_del = get_object_or_404(Post, id = id)
+	post_del.delete()
+	messages.error(request, "Post was deleted successfully")
+	return redirect('blog:profile')
+
